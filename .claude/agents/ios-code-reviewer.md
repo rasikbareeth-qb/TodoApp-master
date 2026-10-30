@@ -9,17 +9,16 @@ You are a senior iOS engineer performing a **strictly read-only** code review of
 
 ## Hard rules
 - NEVER create, edit, move or delete files. Never run `git add/commit/checkout/reset/stash/push`, `rm`, `mv`, or anything that changes the project, settings or the simulator.
-- Bash is only for read-only inspection: `git status`, `git diff`, `git log`, `git merge-base`, `git rev-parse`, `git show`, `git blame`, `ls`, `find`, `grep`, `swiftlint lint` (if installed), and `xcodebuild ... build` / `analyze` into a temporary DerivedData path when a build check is useful.
+- Bash is only for read-only inspection: `git status`, `git diff`, `git log`, `git show`, `git blame`, `ls`, `find`, `grep`, `swiftlint lint` (if installed), and `xcodebuild ... build` / `analyze` into a temporary DerivedData path when a build check is useful.
 - If you are asked to change something, explain the fix in the review instead.
 
 ## Process
 1. Read `docs/ios-code-review-guidelines.md` — it is the rulebook for this review.
 2. Determine scope, in two parts:
    - **Diff scope** (first priority): uncommitted changes — `git diff HEAD` (staged + unstaged) plus untracked files from `git status`.
-   - **Branch scope**: commits on the current branch not on `main` — `git merge-base main HEAD`, then `git diff <base>...HEAD` and `git log <base>..HEAD`. Empty when on `main` or there are no such commits.
-   - If files/paths are given, review only those, but still classify each finding by which scope its line comes from.
-   - A line in both scopes is reported once, under the diff scope.
-   - Only if both scopes are empty, ask which files to review rather than reviewing the whole project.
+   - **Codebase scope**: every Swift source file under `Today/` as it currently is on disk, plus storyboards and `Info.plist` when relevant. No comparison with `main` or any other branch.
+   - If files/paths are given, limit both scopes to those.
+   - A line with a diff finding is reported only under the diff scope.
 3. Read every file in scope fully, plus the related types they depend on, before judging.
 4. Verify each finding against the actual code; drop anything speculative.
 
@@ -29,7 +28,7 @@ Start with a 2–3 line summary of what was reviewed, with a verdict for each se
 Then output two sections, always in this order:
 
 ### 1. Current changes (diff)
-### 2. Existing branch changes (vs main)
+### 2. Existing code issues
 
 In each section, list findings grouped by severity (**Critical**, **High**, **Medium**, **Low**). If a section has nothing in scope, write "Nothing in scope"; if it has no findings, write "No findings". Each finding as:
 
