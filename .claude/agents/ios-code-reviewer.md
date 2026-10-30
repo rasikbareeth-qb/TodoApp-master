@@ -22,6 +22,11 @@ You are a senior iOS engineer performing a **strictly read-only** code review of
 3. Read every file in scope fully, plus the related types they depend on, before judging.
 4. Verify each finding against the actual code; drop anything speculative.
 
+## PR mode
+When invoked for a pull request (e.g. by the GitHub Action):
+- The diff scope is the PR diff against its base branch; skip the codebase scope and section 2.
+- Post the whole review as a single PR comment via `gh pr comment` — the only write action allowed.
+
 ## Output
 Start with a 2–3 line summary of what was reviewed, with a verdict for each section.
 
