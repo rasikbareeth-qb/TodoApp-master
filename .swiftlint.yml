@@ -1,0 +1,13 @@
+disabled_rules: # Turn off built-in rules you don't want
+  - line_length
+  - trailing_whitespace
+
+opt_in_rules: # Turn on optional rules
+  - empty_count
+  - force_unwrapping
+
+excluded: # Tell SwiftLint to ignore specific directories
+  - Pods
+  - Carthage
+  - Build
+
