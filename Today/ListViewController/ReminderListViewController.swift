@@ -134,4 +134,3 @@ class ReminderListViewController: UICollectionViewController {
         headerView = progressView
     }
 }
-
